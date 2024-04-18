@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, StyleSheet, FlatList, Text } from 'react-native';
 import { TextInput, Card, Title, Paragraph } from 'react-native-paper';
 import { useExercise } from '../../services/ExerciseContext';
+import { styles } from './styles';
 
 const SearchScreen = () => {
   const [query, setQuery] = useState('');
@@ -32,18 +33,5 @@ const SearchScreen = () => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 20,
-  },
-  input: {
-    marginBottom: 20,
-  },
-  card: {
-    marginBottom: 10,
-  },
-});
 
 export default SearchScreen;

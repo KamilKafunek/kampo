@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { View, ScrollView, StyleSheet, Text } from 'react-native';
 import { Button, Card, Title, Paragraph } from 'react-native-paper';
 import { ExerciseContext } from '../../services/ExerciseContext';
+import { styles } from './styles';
 
 const HomeScreen = () => {
   const context = useContext(ExerciseContext);
@@ -40,15 +41,5 @@ const HomeScreen = () => {
     </ScrollView>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 10,
-  },
-  card: {
-    marginVertical: 8,
-  },
-});
 
 export default HomeScreen;

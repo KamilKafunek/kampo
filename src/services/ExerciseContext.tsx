@@ -21,7 +21,6 @@ export const ExerciseProvider: React.FC<ExerciseProviderProps> = ({ children }) 
   const addExercise = (exercise: Exercise) => dispatch({ type: 'ADD_EXERCISE', exercise });
   const removeExercise = (id: string) => dispatch({ type: 'REMOVE_EXERCISE', id });
   const loadExercises = () => {
-    // Načítanie cvičení (toto je príklad, skutočná implementácia by mala zahrňovať načítanie z externého zdroja)
     const loadedExercises: Exercise[] = [];
     dispatch({ type: 'LOAD_EXERCISES', exercises: loadedExercises });
   };
