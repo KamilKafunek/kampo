@@ -1,32 +1,41 @@
 import React from 'react';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { BottomNavigation } from 'react-native-paper';
 import HomeScreen from '../../screens/HomeScreen';
 import SearchScreen from '../../screens/SearchScreen';
-import AddStackNavigator from './AddStackNavigator';  // Importuj AddStackNavigator
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import AddStackNavigator from './AddStackNavigator';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import { Route, RenderIconProps } from '../../types';
 
-const Tab = createBottomTabNavigator();
+const TabNavigator = () => {
+  const [index, setIndex] = React.useState(0);
+  const [routes] = React.useState([
+    { key: 'home', title: 'Home', icon: 'home-outline', color: '#3F51B5' },
+    { key: 'search', title: 'Search', icon: 'magnify', color: '#009688' },
+    { key: 'add', title: 'Add', icon: 'plus-box-outline', color: '#795548' },
+  ]);
 
-const TabNavigator = () => (
-  <Tab.Navigator
-    screenOptions={({ route }) => ({
-        tabBarIcon: ({ focused, color, size }) => {
-            let iconName = 'help-circle';
-            if (route.name === 'Home') {
-                iconName = focused ? 'home' : 'home-outline';
-            } else if (route.name === 'Search') {
-                iconName = focused ? 'magnify' : 'magnify';
-            } else if (route.name === 'Add') {
-                iconName = focused ? 'plus-box' : 'plus-box-outline';
-            }
-            return <Icon name={iconName} size={size} color={color} />;
-        },        
-    })}
-  >
-    <Tab.Screen name="Home" component={HomeScreen} />
-    <Tab.Screen name="Search" component={SearchScreen} />
-    <Tab.Screen name="Add" component={AddStackNavigator} />
-  </Tab.Navigator>
-);
+  const renderScene = BottomNavigation.SceneMap({
+    home: HomeScreen,
+    search: SearchScreen,
+    add: AddStackNavigator,
+  });
+
+  const renderIcon = ({ route, focused, color }: RenderIconProps) => (
+    <MaterialCommunityIcons
+      name={focused ? route.icon.replace('-outline', '') : route.icon}
+      color={color}
+      size={26}
+    />
+  );
+
+  return (
+    <BottomNavigation
+      navigationState={{ index, routes }}
+      onIndexChange={setIndex}
+      renderScene={renderScene}
+      renderIcon={renderIcon}
+    />
+  );
+};
 
 export default TabNavigator;

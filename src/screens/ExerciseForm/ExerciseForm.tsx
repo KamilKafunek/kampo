@@ -1,10 +1,11 @@
 // src/screens/ExerciseForm.tsx
 import React, { useState } from 'react';
-import { View, StyleSheet, Button, TextInput } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { useExercise } from '../../services/ExerciseContext';
 import { styles } from './styles';
 import { Picker } from '@react-native-picker/picker';
 import { ExerciseFormNavigationProp } from '../../types/navigationTypes';
+import { TextInput, Card, Title, Paragraph, Button } from 'react-native-paper';
 
 interface Props {
   navigation: ExerciseFormNavigationProp;
@@ -38,8 +39,12 @@ const ExerciseForm: React.FC<Props> = ({ navigation }) => {
         <Picker.Item label="Back" value="Back" />
         <Picker.Item label="Legs" value="Legs" />
         <Picker.Item label="Arms" value="Arms" />
+        <Picker.Item label="Shoulders" value="Shoulders" />
+        <Picker.Item label="Core" value="Core" />
       </Picker>
-      <Button title="Add Exercise" onPress={handleAddExercise} />
+      <Button mode="contained" onPress={handleAddExercise}>
+        Add Exercise
+      </Button>
     </View>
   );
 };
