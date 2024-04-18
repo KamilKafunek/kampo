@@ -3,6 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { useTheme } from 'react-native-paper';
 import AddScreen from '../../screens/AddScreen';
 import ExerciseForm from '../../screens/ExerciseForm';
+import EditExerciseForm from '../../screens/EditExerciseForm';
 
 const Stack = createStackNavigator();
 
@@ -30,6 +31,11 @@ const AddStackNavigator = () => {
         name="ExerciseForm" 
         component={ExerciseForm} 
         options={{ title: 'Exercise Details' }}
+      />
+      <Stack.Screen 
+        name="EditExerciseForm" 
+        component={EditExerciseForm} 
+        options={{ headerShown: true, title: 'Edit Exercise Details', headerLeft: () => null }}
       />
     </Stack.Navigator>
   );

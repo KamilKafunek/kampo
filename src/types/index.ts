@@ -8,9 +8,10 @@ export interface Exercise {
 }
 
 export type ExerciseAction =
-| { type: 'ADD_EXERCISE'; exercise: Exercise }
-| { type: 'REMOVE_EXERCISE'; id: string }
-| { type: 'LOAD_EXERCISES'; exercises: Exercise[] };
+  | { type: 'ADD_EXERCISE'; exercise: Exercise }
+  | { type: 'REMOVE_EXERCISE'; id: string }
+  | { type: 'LOAD_EXERCISES'; exercises: Exercise[] }
+  | { type: 'UPDATE_EXERCISE'; id: string; exercise: Exercise };
 
 export interface Route {
   key: string;

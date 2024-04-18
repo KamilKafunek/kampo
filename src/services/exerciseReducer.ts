@@ -8,6 +8,10 @@ export function exerciseReducer(state: Exercise[], action: ExerciseAction): Exer
       return state.filter(exercise => exercise.id !== action.id);
     case 'LOAD_EXERCISES':
       return action.exercises;
+    case 'UPDATE_EXERCISE':
+      return state.map(exercise =>
+        exercise.id === action.id ? { ...exercise, ...action.exercise } : exercise
+      );
     default:
       return state;
   }

@@ -11,6 +11,7 @@ interface ExerciseContextType {
   addExercise: (exercise: Exercise) => void;
   removeExercise: (id: string) => void;
   loadExercises: () => void;
+  updateExercise: (id: string, exercise: Exercise) => void; // Define update function
 }
 
 export const ExerciseContext = createContext<ExerciseContextType | undefined>(undefined);
@@ -24,9 +25,12 @@ export const ExerciseProvider: React.FC<ExerciseProviderProps> = ({ children }) 
     const loadedExercises: Exercise[] = [];
     dispatch({ type: 'LOAD_EXERCISES', exercises: loadedExercises });
   };
+  const updateExercise = (id: string, exercise: Exercise) => {
+    dispatch({ type: 'UPDATE_EXERCISE', id, exercise });
+  }; // Implement update function
 
   return (
-    <ExerciseContext.Provider value={{ exercises, addExercise, removeExercise, loadExercises }}>
+    <ExerciseContext.Provider value={{ exercises, addExercise, removeExercise, loadExercises, updateExercise }}>
       {children}
     </ExerciseContext.Provider>
   );

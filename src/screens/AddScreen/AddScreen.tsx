@@ -24,8 +24,8 @@ const AddScreen: React.FC<Props> = ({ navigation }) => {
                 <Title>{item.name} - {item.part}</Title>
               </View>
               <Button
-                compact  // Makes the button smaller
-                onPress={() => { /* add function to edit or view more details */ }}
+                compact
+                onPress={() => navigation.navigate('EditExerciseForm', { exerciseId: item.id })}
                 style={styles.editButton}>
                 Edit
               </Button>
