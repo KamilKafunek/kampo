@@ -1,59 +1,33 @@
-import React, { useState } from 'react';
-import { View, StyleSheet } from 'react-native';
-import { TextInput, Button } from 'react-native-paper';
-import { useExercise } from '../../services/ExerciseContext'; // Predpokladá, že useExercise hook existuje
+import React from 'react';
+import { View, FlatList, Text, Button } from 'react-native';
+import { useExercise } from '../../services/ExerciseContext';
+import { styles } from './styles';
+import { AddScreenNavigationProp } from '../../types/navigationTypes';
 
-const AddScreen = () => {
-  const [name, setName] = useState('');
-  const [weight, setWeight] = useState('');
-  const [reps, setReps] = useState('');
-  const { addExercise } = useExercise(); // Predpokladá prístup k hooku useExercise
+interface Props {
+  navigation: AddScreenNavigationProp;
+}
 
-  const handleAddExercise = () => {
-    if (!name || !weight || !reps) return;
-    addExercise({ id: Date.now().toString(), name, weight: parseInt(weight), reps: parseInt(reps), date: new Date().toISOString() });
-    setName('');
-    setWeight('');
-    setReps('');
-  };
+const AddScreen: React.FC<Props> = ({ navigation }) => {
+  const { exercises } = useExercise();
 
   return (
     <View style={styles.container}>
-      <TextInput
-        label="Exercise Name"
-        value={name}
-        onChangeText={setName}
-        style={styles.input}
+      <FlatList
+        data={exercises}
+        keyExtractor={item => item.id}
+        renderItem={({ item }) => (
+          <View style={styles.itemContainer}>
+            <Text style={styles.itemText}>{item.name} {item.part}</Text>
+          </View>
+        )}
       />
-      <TextInput
-        label="Weight (kg)"
-        value={weight}
-        onChangeText={setWeight}
-        keyboardType="numeric"
-        style={styles.input}
+      <Button
+        title="Add New Exercise"
+        onPress={() => navigation.navigate('ExerciseForm')}
       />
-      <TextInput
-        label="Repetitions"
-        value={reps}
-        onChangeText={setReps}
-        keyboardType="numeric"
-        style={styles.input}
-      />
-      <Button mode="contained" onPress={handleAddExercise}>
-        Add Exercise
-      </Button>
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 20,
-  },
-  input: {
-    marginBottom: 20,
-  },
-});
 
 export default AddScreen;
