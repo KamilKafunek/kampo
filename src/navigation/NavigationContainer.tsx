@@ -1,11 +1,17 @@
 import React from 'react';
 import { NavigationContainer as NavContainer } from '@react-navigation/native';
-import TabNavigator from './Route/TabNavigator';
+import { createStackNavigator } from '@react-navigation/stack';
+import TabNavigator from './Route/TabNavigator';  // Adjust the path as necessary
+
+const RootStack = createStackNavigator();
 
 const NavigationContainer = () => {
   return (
     <NavContainer>
-      <TabNavigator />
+      <RootStack.Navigator screenOptions={{ headerShown: false }}>
+        <RootStack.Screen name="Main" component={TabNavigator} />
+        {/* Add other screens here if necessary */}
+      </RootStack.Navigator>
     </NavContainer>
   );
 };

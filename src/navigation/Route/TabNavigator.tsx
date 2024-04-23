@@ -1,40 +1,54 @@
+// TabNavigator.js
+
 import React from 'react';
-import { BottomNavigation } from 'react-native-paper';
-import HomeScreen from '../../screens/HomeScreen';
-import SearchScreen from '../../screens/SearchScreen';
-import AddStackNavigator from './AddStackNavigator';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { useTheme } from 'react-native-paper';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import { Route, RenderIconProps } from '../../types';
+import HomeStackNavigator from './HomeStackNavigator';
+import AddStackNavigator from './AddStackNavigator';
+import SearchScreen from '../../screens/SearchScreen';
+
+const Tab = createBottomTabNavigator();
 
 const TabNavigator = () => {
-  const [index, setIndex] = React.useState(0);
-  const [routes] = React.useState([
-    { key: 'home', title: 'Home', icon: 'home-outline', color: '#3F51B5' },
-    { key: 'search', title: 'Search', icon: 'magnify', color: '#009688' },
-    { key: 'add', title: 'Add', icon: 'plus-box-outline', color: '#795548' },
-  ]);
-
-  const renderScene = BottomNavigation.SceneMap({
-    home: HomeScreen,
-    search: SearchScreen,
-    add: AddStackNavigator,
-  });
-
-  const renderIcon = ({ route, focused, color }: RenderIconProps) => (
-    <MaterialCommunityIcons
-      name={focused ? route.icon.replace('-outline', '') : route.icon}
-      color={color}
-      size={26}
-    />
-  );
-
+  const { colors } = useTheme();
   return (
-    <BottomNavigation
-      navigationState={{ index, routes }}
-      onIndexChange={setIndex}
-      renderScene={renderScene}
-      renderIcon={renderIcon}
-    />
+    <Tab.Navigator
+    screenOptions={({ route }) => ({
+      tabBarIcon: ({ focused, color, size }) => {
+        let iconName;
+        if (route.name === 'Home') {
+          iconName = focused ? 'home' : 'home-outline';
+        } else if (route.name === 'Search') {
+          iconName = focused ? 'magnify' : 'magnify';  // Consider adding an outline version if available
+        } else if (route.name === 'Add') {
+          iconName = focused ? 'plus-box' : 'plus-box-outline';
+        } else {
+          iconName = 'circle';  // Fallback icon in case none of the conditions match
+        }
+
+        // Return the icon component with guaranteed string assignment
+        return <MaterialCommunityIcons name={iconName} size={size} color={color} />;
+      },
+      tabBarActiveTintColor: colors.primary,
+      tabBarInactiveTintColor: 'gray',
+      tabBarStyle: { backgroundColor: colors.surface },
+      headerStyle: {
+        backgroundColor: colors.primary,
+      },
+      headerTintColor: colors.background,
+    })}
+  >
+      <Tab.Screen name="Home" component={HomeStackNavigator} options={{
+    title: 'Home',
+    headerShown: false 
+  }}/>
+      <Tab.Screen name="Search" component={SearchScreen} />
+      <Tab.Screen name="Add" component={AddStackNavigator} options={{
+    title: 'Add',
+    headerShown: false
+  }}/>
+    </Tab.Navigator>
   );
 };
 

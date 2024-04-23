@@ -1,12 +1,22 @@
 import React from 'react';
-import { Provider as PaperProvider } from 'react-native-paper';
 import { ExerciseProvider } from './src/services/ExerciseContext';
-import NavigationContainer from './src/navigation/NavigationContainer'; // Predpokladám, že cesta je správna
+import NavigationContainer from './src/navigation/NavigationContainer'; 
 import 'react-native-gesture-handler';
+import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
+
+const theme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    primary: 'tomato',
+    accent: 'yellow',
+  },
+};
+
 
 const App = () => {
   return (
-    <PaperProvider>
+    <PaperProvider theme={theme}>
       <ExerciseProvider>
         <NavigationContainer />
       </ExerciseProvider>

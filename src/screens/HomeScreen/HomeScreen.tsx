@@ -3,8 +3,13 @@ import { View, ScrollView, StyleSheet, Text } from 'react-native';
 import { Button, Card, Title, Paragraph } from 'react-native-paper';
 import { ExerciseContext } from '../../services/ExerciseContext';
 import { styles } from './styles';
+import { HomeScreenNavigationProp } from '../../types/navigationTypes';
 
-const HomeScreen = () => {
+interface Props {
+  navigation: HomeScreenNavigationProp;
+}
+
+const HomeScreen: React.FC<Props> = ({ navigation }) => {
   const context = useContext(ExerciseContext);
   
   // Príklad ochrany pred undefined
@@ -25,7 +30,7 @@ const HomeScreen = () => {
 
   return (
     <ScrollView style={styles.container}>
-      <Button icon="dumbbell" mode="contained" onPress={toggleGymMode}>
+      <Button icon="dumbbell" mode="contained" onPress={() => navigation.navigate('GymModeScreen')}>
         {gymMode ? "Exit Gym Mode" : "Enter Gym Mode"}
       </Button>
       {exercises.map((exercise, index) => (
