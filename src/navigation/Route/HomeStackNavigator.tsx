@@ -17,6 +17,9 @@ const HomeStackNavigator = () => {
           backgroundColor: colors.primary,
         },
         headerTintColor: colors.background,
+        headerTitleStyle: {
+          fontWeight: 'bold',
+        }
       }}
     >
       <Stack.Screen name="HomeScreen" component={HomeScreen} options={{

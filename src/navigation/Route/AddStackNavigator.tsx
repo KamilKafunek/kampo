@@ -18,6 +18,10 @@ const AddStackNavigator = () => {
           backgroundColor: colors.primary,
         },
         headerTintColor: colors.background,
+        
+        headerTitleStyle: {
+          fontWeight: 'bold',
+        }
       }}
     >
       <Stack.Screen name="AddScreen" component={AddScreen} options={{

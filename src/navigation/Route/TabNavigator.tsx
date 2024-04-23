@@ -37,6 +37,9 @@ const TabNavigator = () => {
         backgroundColor: colors.primary,
       },
       headerTintColor: colors.background,
+      headerTitleStyle: {
+        fontWeight: 'bold',
+      }
     })}
   >
       <Tab.Screen name="Home" component={HomeStackNavigator} options={{
